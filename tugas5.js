@@ -3,7 +3,7 @@ var vokal = 'aiueo'
 var adalahHurufVokal = false;
 
 for (var i = 0; i < vokal.length; i++) {
-    if (word[0] === vokal[i]) {
+    if (word[0].toLowerCase() === vokal[i]) {
       adalahHurufVokal = true;
     }
   }
@@ -21,5 +21,6 @@ for (var i = 0; i < vokal.length; i++) {
   }
   console.log(hasil);
 }
-stringManipulation('ikan'); //"ikan"
-stringManipulation('gajah'); //"ajahgnyo"
+
+stringManipulation('Ikan'); //"ikan"
+stringManipulation('Gajah'); //"ajahgnyo"
