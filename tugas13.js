@@ -1,11 +1,10 @@
 const fs = require('fs')
+const input = process.argv;
+const data = JSON.parse(fs.readFileSync('data.json', 'utf-8'))
+let index = parseInt(input[3]) - 1
 
-const callTask = process.argv;
-const data = JSON.parse(fs.readFileSync('penampung.json', 'utf-8'))
-let index = parseInt(callTask[3]) - 1
-
-const Todo = `
-List Syntax untuk menjalankan kode
+const text = `
+>>>>>> JS TODO <<<<<
 $ node test13.js <command>
 $ node test13.js list
 $ node test13.js task <task_id>
@@ -20,35 +19,34 @@ $ node test13.js filter: <tag_name>
 `
 
 if (!process.argv[2]) {
-    console.log(Todo)
-    process.exit(0) //gabisa diatas const Todo harus dibawah variablenya
+    console.log(text)
+    process.exit(0)
 }
-//penggunaan switchcase kurang lebih seperti if else
 
 switch (process.argv[2]) {
+    case 'help':
+        console.log(text)
+        process.exit(0)
 
-    case 'add':
-        let tambah = '';
-        for (let i = 3; i < callTask.length; i++) {
-            tambah += callTask[i] + ' '
+    case 'add':         //menambahkan
+        let output = '';
+        for (let i = 3; i < input.length; i++) {
+            output += input[i] + ' '
         };
-        //untuk menambah list
-
         data.push({
             'tag': [],
-            'content': tambah,
-            'status': false
+            'content': output,
+            'status': '[ ]'
         })
         fs.writeFileSync('data.json', JSON.stringify(data, null, 3))
-        console.log(`"${tambah.trim()}" telah ditambahkan`)
+        console.log(`"${output.trim()}" telah ditambahkan`)
         process.exit(0)
 
     case 'list':
+        console.log('Daftar Kerjaan')
         for (let i = 0; i < data.length; i++) {
             console.log(`${i + 1}. ${data[i].status ? '[x]' : '[ ]'} ${data[i].content.trim()}.`)
         }
-        //untuk melihat daftar kerjaan
-
         break;
 
     case 'task':
@@ -64,33 +62,29 @@ Status: ${data[index].status ? true : false} `)
         data.splice(index, 1)
         fs.writeFileSync('data.json', JSON.stringify(data, null, 3))
         process.exit(0);
-    //menghapous task yg ad di list
 
     case 'complete':
         data[index].status = '[x]'
-        console.log(`"${data[index]['content']}"Udah dikerjain`)
+        console.log(`"${data[index]['content']}" telah selesai`)
         fs.writeFileSync('data.json', JSON.stringify(data, null, 3))
         process.exit(0)
-    //menyatakan pekerjaan telah selesai
 
     case 'uncomplete':
         data[index].status = false
-        console.log(`"${data[index]['content']}"belom dikerjain`)
+        console.log(`"${data[index]['content']}" tidak jadi selesai`)
         fs.writeFileSync('data.json', JSON.stringify(data, null, 3))
         process.exit(0)
-    //menyatakan pekerjaan belum selesai
 
-    case 'list:outstanding':
+    case 'list:outstanding':    //list yang belum selesai
         console.log('Daftar Pekerjaan')
-        if (callTask[3] == 'asc')
+        if (input[3] == 'asc')  //dari lama ke sebentar
             for (let i = 0; i < data.length; i++) {
                 if (data[i].status == false) {
                     console.log(`${i + 1}. [ ] ${data[i].content}`);
                 }
             };
-        //list pekerjaan yg belum dikerjakan
 
-        if (callTask[3] == 'desc')
+        if (input[3] == 'desc') //dari sebentar ke lama
             for (let i = data.length - 1; i >= 0; i--) {
                 if (data[i].status == false) {
                     console.log(`${i + 1}. [ ] ${data[i].content}`);
@@ -98,17 +92,16 @@ Status: ${data[index].status ? true : false} `)
             };
         process.exit(0);
 
-    case 'list:completed':
+    case 'list:completed':  //list yang sudah selesai
         console.log('Daftar Pekerjaan')
-        if (callTask[3] == 'asc')
+        if (input[3] == 'asc')  //dari lama ke sebentar
             for (let i = 0; i < data.length; i++) {
                 if (data[i].status == '[x]') {
                     console.log(`${i + 1}. ${data[i].status} ${data[i].content}`);
                 }
             };
-        //list yg sudah selesai dikerjakan
 
-        if (callTask[3] == 'desc')
+        if (input[3] == 'desc') //dari sebentar ke lama
             for (let i = data.length - 1; i >= 0; i--) {
                 if (data[i].status == '[x]') {
                     console.log(`${i + 1}. ${data[i].status} ${data[i].content}`);
@@ -118,13 +111,11 @@ Status: ${data[index].status ? true : false} `)
 
 
     case 'tag':
-        for (let i = 4; i < callTask.length; i++) {
-            if (!data[index].tag.includes(callTask[i])) {
-                data[index].tag.push(callTask[i])
+        for (let i = 4; i < input.length; i++) {
+            if (!data[index].tag.includes(input[i])) {
+                data[index].tag.push(input[i])
             }
         }
-        //sebuah penanda untuk di sortir
-
         data[index].tag.length - 1;
         console.log(`tag "${data[index].tag}" telah ditambahkan ke daftar ${data[index].content}`)
         fs.writeFileSync('data.json', JSON.stringify(data, null, 3))
@@ -133,9 +124,7 @@ Status: ${data[index].status ? true : false} `)
 
 filtering(process.argv[2])
 
-function filtering() { 
-    //fungsi untuk menyortir
-
+function filtering() { //fungsi untuk Filter
     console.log('Daftar Pekerjaan')
     let kata = process.argv[2]
     let kata2 = kata.slice(0, 7)
