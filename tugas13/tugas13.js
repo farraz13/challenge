@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 const callTask = process.argv;
-const data = JSON.parse(fs.readFileSync('data.json', 'utf-8'))
+const data = JSON.parse(fs.readFileSync('penampung.json', 'utf-8'))
 let index = parseInt(callTask[3]) - 1
 
 const Todo = `
@@ -135,7 +135,7 @@ filtering(process.argv[2])
 
 function filtering() { 
     //fungsi untuk menyortir
-    
+
     console.log('Daftar Pekerjaan')
     let kata = process.argv[2]
     let kata2 = kata.slice(0, 7)
