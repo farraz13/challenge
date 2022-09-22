@@ -10,9 +10,9 @@ const rl = readline.createInterface({
   prompt: 'Jawabanmu: '
 });
 
-console.log('Selamat datang,semoga beruntung!\n')
+console.log('Selamat datang,semoga beruntung!\n');
 
-let count = 0
+let count = 0;
 
 console.log(`Pertanyaan: ${data[count].definition}`);
 rl.prompt();
@@ -30,12 +30,12 @@ rl.on('line', answer => {
     }
   } else {
     if (answer.toLowerCase() !== data[count].term) {
-      console.log('kurang tepat nih, ganti lagi!\n')
-      rl.prompt()
+      console.log('kurang tepat nih, ganti lagi!\n');
+      rl.prompt();
     } else {
-      console.log('Bener nih, lanjut bro!\n')
+      console.log('Bener nih, lanjut bro!\n');
       console.log('Asik menang!');
-      process.exit(0)
+      process.exit(0);
     }
   }
 }).on('close', () => {
