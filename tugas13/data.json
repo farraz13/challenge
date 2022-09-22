@@ -1,0 +1,19 @@
+[
+   {
+      "tag": [],
+      "content": "mandi ",
+      "status": "[x]"
+   },
+   {
+      "tag": [
+         "merah"
+      ],
+      "content": "main sulap ",
+      "status": false
+   },
+   {
+      "tag": [],
+      "content": "pergi ke pasar ",
+      "status": "[x]"
+   }
+]
