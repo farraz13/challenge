@@ -122,7 +122,7 @@ Status: ${data[index].status ? true : false} `)
         process.exit(0);
 };
 
-filtering(process.argv[2])
+filtering(process.argv[2]);
 
 function filtering() { //fungsi untuk Filter
     console.log('Daftar Pekerjaan')
