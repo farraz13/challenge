@@ -135,4 +135,4 @@ function filtering() { //fungsi untuk Filter
             }
         })
     };
-};
+}
