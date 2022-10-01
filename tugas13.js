@@ -134,5 +134,5 @@ function filtering() { //fungsi untuk Filter
                 console.log(`${index + 1}. ${item.status ? '[x]' : '[ ]'} ${item.content}`);
             }
         })
-    };
-};
+    }
+}
